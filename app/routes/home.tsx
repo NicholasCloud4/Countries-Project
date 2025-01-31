@@ -51,7 +51,7 @@ export default function Home() {
                     <div className="w-full md:w-1/2">
                         <div className="overflow-hidden rounded-md shadow-xl">
                             <img
-                                src="https://images.pexels.com/photos/417351/pexels-photo-417351.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
+                                src="https://images.pexels.com/photos/4784922/pexels-photo-4784922.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
                                 alt="Explore countries"
                                 className="w-full h-auto"
                             />

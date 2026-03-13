@@ -3,7 +3,9 @@ import type { Route } from "./+types/countries";
 import { Link } from "react-router";
 
 export async function clientLoader() {
-    const response = await fetch("https://restcountries.com/v3.1/all");
+    const response = await fetch(
+        "https://restcountries.com/v3.1/all?fields=name,region,population,cca3",
+    );
     const data = await response.json();
     return data;
 }

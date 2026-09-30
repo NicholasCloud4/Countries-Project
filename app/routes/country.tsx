@@ -1,24 +1,29 @@
 import React from "react";
 import type { Route } from "./+types/country";
+import { fetchCountryByName } from "~/lib/restCountries";
 
 export async function clientLoader({ params }: Route.LoaderArgs) {
-    const countryName = params.countryName;
-    const response = await fetch(
-        `https://restcountries.com/v3.1/name/${countryName}?fullText=true&fields=name,capital,region,subregion,flags,population`,
-    );
-    const data = await response.json();
-    return data;
+    return fetchCountryByName(params.countryName, [
+        "names.common",
+        "names.official",
+        "capitals",
+        "region",
+        "subregion",
+        "flag.url_png",
+        "population",
+    ]);
 }
 
 export default function Country({ loaderData }: Route.ComponentProps) {
     const country = {
-        name: loaderData[0]?.name?.common || "N/A",
-        officialName: loaderData[0]?.name?.official || "N/A",
-        capital: loaderData[0]?.capital || "N/A",
-        region: loaderData[0]?.region || "N/A",
-        subregion: loaderData[0]?.subregion || "N/A",
-        flag: loaderData[0]?.flags?.png || "N/A",
-        population: loaderData[0]?.population || "",
+        name: loaderData?.names?.common || "N/A",
+        officialName: loaderData?.names?.official || "N/A",
+        capital:
+            loaderData?.capitals?.map((c: any) => c.name).join(", ") || "N/A",
+        region: loaderData?.region || "N/A",
+        subregion: loaderData?.subregion || "N/A",
+        flag: loaderData?.flag?.url_png || "",
+        population: loaderData?.population || "",
     };
 
     return (

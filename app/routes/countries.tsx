@@ -1,13 +1,15 @@
 import React, { useState } from "react";
 import type { Route } from "./+types/countries";
 import { Link } from "react-router";
+import { fetchAllCountries } from "~/lib/restCountries";
 
 export async function clientLoader() {
-    const response = await fetch(
-        "https://restcountries.com/v3.1/all?fields=name,region,population,cca3",
-    );
-    const data = await response.json();
-    return data;
+    return fetchAllCountries([
+        "names.common",
+        "region",
+        "population",
+        "codes.alpha_3",
+    ]);
 }
 
 export default function Countries({ loaderData }: Route.ComponentProps) {
@@ -20,7 +22,7 @@ export default function Countries({ loaderData }: Route.ComponentProps) {
 
         const matchesSearch =
             !search ||
-            country.name.common.toLowerCase().includes(search.toLowerCase());
+            country.names.common.toLowerCase().includes(search.toLowerCase());
         return matchesSearch && matchesRegion;
     });
 
@@ -61,14 +63,14 @@ export default function Countries({ loaderData }: Route.ComponentProps) {
                 <ul className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
                     {filteredCountries.map((country: any) => (
                         <li
-                            key={country.cca3}
+                            key={country.codes.alpha_3 || country.names.common}
                             className="bg-white border border-gray-200 rounded-2xl p-6 shadow-lg hover:shadow-xl transition-all duration-300 ease-in-out transform hover:scale-100"
                         >
                             <Link
-                                to={`/countries/${country.name.common}`}
+                                to={`/countries/${country.names.common}`}
                                 className="text-blue-600 hover:text-blue-700 text-xl font-semibold"
                             >
-                                {country.name.common}
+                                {country.names.common}
                             </Link>
                             <div className="text-gray-600 text-sm mt-2">
                                 <div>Region: {country.region}</div>

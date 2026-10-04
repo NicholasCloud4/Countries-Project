@@ -1,100 +1,146 @@
-# Welcome to React Router!
+# 🌍 Country Explorer
 
-A modern, production-ready template for building full-stack React applications using React Router.
+A responsive web app for exploring data about every country in the world, including names, capitals, regions, populations, and flags. Built with React Router v7 and Tailwind CSS, powered by the [REST Countries API](https://restcountries.com/).
 
-[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/remix-run/react-router-templates/tree/main/default)
+**🔗 Live demo:** [countryexplorer0.netlify.app](https://countryexplorer0.netlify.app/)
 
-## Features
+![React](https://img.shields.io/badge/React-19-61DAFB?logo=react&logoColor=white)
+![React Router](https://img.shields.io/badge/React_Router-7-CA4245?logo=reactrouter&logoColor=white)
+![TypeScript](https://img.shields.io/badge/TypeScript-5-3178C6?logo=typescript&logoColor=white)
+![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-4-06B6D4?logo=tailwindcss&logoColor=white)
+![Netlify](https://img.shields.io/badge/Deployed_on-Netlify-00C7B7?logo=netlify&logoColor=white)
 
-- 🚀 Server-side rendering
-- ⚡️ Hot Module Replacement (HMR)
-- 📦 Asset bundling and optimization
-- 🔄 Data loading and mutations
-- 🔒 TypeScript by default
-- 🎉 TailwindCSS for styling
-- 📖 [React Router docs](https://reactrouter.com/)
+<!-- Add a screenshot or GIF of the app here, e.g.:
+![Country Explorer screenshot](docs/screenshot.png)
+-->
 
-## Getting Started
+---
 
-### Installation
+## ✨ Features
 
-Install the dependencies:
+- **Browse every country** with live data from the REST Countries API
+- **Key details at a glance:** country name, capital, region, population, and flag
+- **Server-side rendering** via React Router v7 framework mode for fast first loads
+- **Fully responsive UI** styled with Tailwind CSS
+- **Three pages:** a landing page, the countries explorer, and an about page
+
+---
+
+## 🛠️ Built with
+
+- [React 19](https://react.dev/)
+- [React Router 7](https://reactrouter.com/) (framework mode, with SSR)
+- [TypeScript](https://www.typescriptlang.org/)
+- [Tailwind CSS 4](https://tailwindcss.com/)
+- [Vite](https://vite.dev/)
+- [React Icons](https://react-icons.github.io/react-icons/)
+- [REST Countries API](https://restcountries.com/) for country data
+- [Netlify](https://www.netlify.com/) for hosting
+
+---
+
+## 🚀 Getting started
+
+### Prerequisites
+
+- [Node.js](https://nodejs.org/) 20 or later
+- npm (comes with Node.js)
+- A free REST Countries API key
+
+### 1. Clone and install
 
 ```bash
+git clone https://github.com/NicholasCloud4/Countries-Project.git
+cd Countries-Project
 npm install
 ```
 
-### Development
+### 2. Set up your API key
 
-Start the development server with HMR:
+1. Sign up for a free key at [restcountries.com/sign-up](https://restcountries.com/sign-up).
+2. On the API Keys page, allow the hostnames you'll run the app from (e.g. `localhost` and your Netlify domain).
+3. Copy the example env file and add your key:
+
+```bash
+cp .env.example .env
+```
+
+```env
+VITE_RESTCOUNTRIES_API_KEY=your_api_key_here
+```
+
+> **Note:** Variables prefixed with `VITE_` are bundled into the client-side code, so the key will be visible in the browser. That's why the hostname allowlist in step 2 matters, since it stops other sites from using your key.
+
+### 3. Run the dev server
 
 ```bash
 npm run dev
 ```
 
-Your application will be available at `http://localhost:5173`.
+Then open [http://localhost:5173](http://localhost:5173) in your browser.
 
-## Building for Production
+### Available scripts
 
-Create a production build:
-
-```bash
-npm run build
-```
-
-## Deployment
-
-### Docker Deployment
-
-This template includes three Dockerfiles optimized for different package managers:
-
-- `Dockerfile` - for npm
-- `Dockerfile.pnpm` - for pnpm
-- `Dockerfile.bun` - for bun
-
-To build and run using Docker:
-
-```bash
-# For npm
-docker build -t my-app .
-
-# For pnpm
-docker build -f Dockerfile.pnpm -t my-app .
-
-# For bun
-docker build -f Dockerfile.bun -t my-app .
-
-# Run the container
-docker run -p 3000:3000 my-app
-```
-
-The containerized application can be deployed to any platform that supports Docker, including:
-
-- AWS ECS
-- Google Cloud Run
-- Azure Container Apps
-- Digital Ocean App Platform
-- Fly.io
-- Railway
-
-### DIY Deployment
-
-If you're familiar with deploying Node applications, the built-in app server is production-ready.
-
-Make sure to deploy the output of `npm run build`
-
-```
-├── package.json
-├── package-lock.json (or pnpm-lock.yaml, or bun.lockb)
-├── build/
-│   ├── client/    # Static assets
-│   └── server/    # Server-side code
-```
-
-## Styling
-
-This template comes with [Tailwind CSS](https://tailwindcss.com/) already configured for a simple default starting experience. You can use whatever CSS framework you prefer.
+| Command | Description |
+| --- | --- |
+| `npm run dev` | Start the development server with hot module replacement |
+| `npm run build` | Create a production build in `build/` |
+| `npm run start` | Serve the production build with `react-router-serve` |
+| `npm run typecheck` | Generate route types and run the TypeScript compiler |
 
 ---
 
-Built with ❤️ using React Router.
+## 📁 Project structure
+
+```
+.
+├── app/                     # Routes, components, and app root
+├── public/                  # Static assets
+├── .env.example             # Template for environment variables
+├── Dockerfile               # Container build for production
+├── react-router.config.ts   # React Router framework config
+├── vite.config.ts           # Vite config (incl. Netlify + Tailwind plugins)
+├── tsconfig.json
+└── package.json
+```
+
+---
+
+## ☁️ Deployment
+
+### Netlify
+
+The live site is deployed on Netlify using the [`@netlify/vite-plugin-react-router`](https://www.npmjs.com/package/@netlify/vite-plugin-react-router) plugin, which handles server-side rendering through Netlify Functions.
+
+To deploy your own copy:
+
+1. Fork this repository and import it into [Netlify](https://app.netlify.com/start).
+2. Set the build command to `npm run build`.
+3. Add `VITE_RESTCOUNTRIES_API_KEY` under **Site configuration → Environment variables**.
+4. Add your Netlify domain to the allowed hostnames on your REST Countries API Keys page.
+
+### Docker
+
+```bash
+docker build -t country-explorer .
+docker run -p 3000:3000 country-explorer
+```
+
+The app will be available at [http://localhost:3000](http://localhost:3000). Because Vite embeds `VITE_` variables at build time, make sure your API key is available when the image is built.
+
+---
+
+## 🔮 Possible future improvements
+
+- Search and filter countries by name or region
+- Dedicated detail pages with languages, currencies, and bordering countries
+- Sorting by population or area
+- Dark mode toggle
+
+---
+
+## 📝 Acknowledgements
+
+Country data is provided by the [REST Countries API](https://restcountries.com/). This is an independent project made for learning and portfolio purposes.
+
+---
